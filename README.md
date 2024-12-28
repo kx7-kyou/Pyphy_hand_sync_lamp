@@ -1,4 +1,4 @@
-used Thonny to inject code into esp32 device.
+Used Thonny to inject code into esp32 device.
 
 MicroPython and ssd1306 lib needed
 
