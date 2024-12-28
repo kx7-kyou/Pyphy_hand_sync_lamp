@@ -1,1 +1,2 @@
-Pyphy 코드 공유용
+1. Pyphy_hand_sync_PC.py
+2. Pyphy_hand_sync_esp32.py 
