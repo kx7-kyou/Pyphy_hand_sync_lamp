@@ -4,8 +4,8 @@ import socket
 import time
 
 #setting ip, port
-ESP32_IP = "IP"
-ESP32_PORT = 5000
+ESP32_IP = "172.20.10.9"
+ESP32_PORT = 1235
 
 #initializing
 mp_hands = mp.solutions.hands
@@ -32,17 +32,37 @@ try:
 
         if results.multi_hand_landmarks:
             for hand_landmarks in results.multi_hand_landmarks:
-                #get coordinates
+                #get coordinates    
+                MCP = [
+                    hand_landmarks.landmark[5],
+                    hand_landmarks.landmark[9],
+                    hand_landmarks.landmark[13],
+                    hand_landmarks.landmark[17]
+                ]
+                wrist = hand_landmarks.landmark[0]
                 thumb_tip = hand_landmarks.landmark[4]
                 index_tip = hand_landmarks.landmark[8]
                 middle_tip = hand_landmarks.landmark[12]
                 ring_tip = hand_landmarks.landmark[16]
 
                 #cac distance
-                distance = [0, 0, 0]
+                distance = [0, 0, 0, 0]
                 distance[0] = ((thumb_tip.x - index_tip.x)**2 + (thumb_tip.y - index_tip.y)**2)**0.5
                 distance[1] = ((thumb_tip.x - middle_tip.x)**2 + (thumb_tip.y - middle_tip.y)**2)**0.5
                 distance[2] = ((thumb_tip.x - ring_tip.x)**2 + (thumb_tip.y - ring_tip.y)**2)**0.5
+                for i in range(0, 4):
+                    distance[3] += ((wrist.x - MCP[i].x)**2 + (wrist.y - MCP[i].y)**2)**0.5
+                    if i == 3:
+                        distance[3] = distance[3]/4
+
+                #z-axis distance correction
+                distance_rate = distance[3]/(2/10)
+                if distance_rate < 1:
+                    distance[0] = distance[0]/(distance_rate*(9/10))
+                    distance[1] = distance[1]/distance_rate
+                    distance[2] = distance[2]/(distance_rate*(8/10))
+
+                print(distance)
 
                 #transfer distance into RGB
                 rgb = [0, 0, 0]
