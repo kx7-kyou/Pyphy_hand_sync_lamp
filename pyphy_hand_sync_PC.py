@@ -4,8 +4,8 @@ import socket
 import time
 
 #setting ip, port
-ESP32_IP = "172.20.10.9"
-ESP32_PORT = 1235
+ESP32_IP = "IP"
+ESP32_PORT = PORT
 
 #initializing
 mp_hands = mp.solutions.hands
