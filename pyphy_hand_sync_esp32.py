@@ -15,8 +15,8 @@ display.fill(0)
 display.show()
 
 #wifi setting
-ssid = 'test'
-password = 'pkt8950a'
+ssid = 'SSID'
+password = 'PW'
 
 sta_if = network.WLAN(network.STA_IF)
 sta_if.active(False)
