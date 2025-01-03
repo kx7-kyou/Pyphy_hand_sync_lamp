@@ -45,7 +45,7 @@ try:
                 middle_tip = hand_landmarks.landmark[12]
                 ring_tip = hand_landmarks.landmark[16]
 
-                #cac distance
+                #distance
                 distance = [0, 0, 0, 0]
                 distance[0] = ((thumb_tip.x - index_tip.x)**2 + (thumb_tip.y - index_tip.y)**2)**0.5
                 distance[1] = ((thumb_tip.x - middle_tip.x)**2 + (thumb_tip.y - middle_tip.y)**2)**0.5
